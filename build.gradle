@@ -1,0 +1,150 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4' apply false
+	id 'io.spring.dependency-management' version '1.1.4' apply false
+	id "com.diffplug.spotless" version "6.25.0" apply false
+	id "jacoco"
+	id "org.sonarqube" version "4.4.1.3373"
+}
+
+group = 'com.jms'
+version = '0.0.1-SNAPSHOT'
+
+def javaVersion = '17'
+
+java {
+	sourceCompatibility = javaVersion
+}
+
+def sonarqubeExclusions = [
+		"**/*Application*",
+		"**/config/*",
+		"**/domain/*",
+		"**/dto/*",
+		"**/pojo/*"
+]
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "${SONAR_PROJECT_KEY}"
+		property "sonar.coverage.exclusions", sonarqubeExclusions
+	}
+}
+
+def jacocoExclusions = [
+		"**/*Application*",
+		"**/config/*",
+		"**/domain/*",
+		"**/dto/*",
+		"**/pojo/*"
+]
+
+repositories {
+	mavenCentral()
+}
+
+subprojects {
+	repositories {
+		mavenCentral()
+	}
+
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	apply plugin: "com.diffplug.spotless"
+	spotless {
+		build.enabled = false
+		java {
+			importOrder()
+			removeUnusedImports()
+			target fileTree('.') {
+				include '**/src/*/java/**/*.java'
+				exclude '**/build/**'
+			}
+		}
+	}
+
+	apply plugin: 'jacoco'
+	jacoco {
+		toolVersion = "0.8.11" // Officially supports Java 21
+	}
+	jacocoTestCoverageVerification {
+		afterEvaluate {
+			classDirectories.setFrom(files(classDirectories.files.collect {
+				fileTree(dir: it, exclude: jacocoExclusions)
+			}))
+		}
+		dependsOn test
+		violationRules {
+			rule {
+				element = 'BUNDLE'
+				limit {
+					counter = 'INSTRUCTION'
+					value = 'MISSEDRATIO'
+					maximum = 0.2
+				}
+			}
+		}
+	}
+	jacocoTestReport {
+		dependsOn test
+		reports {
+			getXml().configure {
+				enabled true
+			}
+		}
+		afterEvaluate {
+			classDirectories.setFrom(files(classDirectories.files.collect {
+				fileTree(dir: it, exclude: jacocoExclusions)
+			}))
+		}
+	}
+
+	dependencies {
+		// Spring Starter Web
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+
+		// Testing
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
+		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
+
+		// Module(s): microsoft-entra-ID-access-resource-server-example
+		implementation 'com.azure.spring:spring-cloud-azure-starter-active-directory:5.10.0'
+		implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	}
+
+	// Packaging Executable and Plain Archives
+	// https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#packaging-executable.and-plain-archives
+	bootJar {
+		enabled = false
+	}
+
+	jar {
+		archiveClassifier = '' // To Ignore Plain Archive
+	}
+
+	if (it.name == 'app') {
+		bootJar {
+			enabled = true
+			mainClass = 'com.jms.springbootgradlejavaboilerplate.SpringBootGradleJavaBoilerplateApplication'
+		}
+
+		jar {
+			enabled = false // Do not disable the jar task when creating native images.
+		}
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+jar {
+	enabled = false // Do not disable the jar task when creating native images.
+}

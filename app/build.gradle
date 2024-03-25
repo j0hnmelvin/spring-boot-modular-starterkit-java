@@ -1,0 +1,3 @@
+dependencies {
+    implementation project(':microsoft-entra-ID-access-resource-server-example')
+}
