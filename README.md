@@ -5,7 +5,7 @@ This is a Spring Boot Gradle Java Multi Module boilerplate with the following mo
     - Responsible for the main application and YAML files
     - Responsible for integration with other modules
     - Depends on the other modules to assemble the application
-- **microsoft-entra-ID-access-resource-server-example**
+- **microsoft-entra-ID-protect-resource-server**
   - This example illustrates how to protect a Java Web API using Microsoft Entra ID by restricting access to its resources to authorized accounts only.
     - Reference: [Spring Boot Starter for Microsoft Entra developer's guide](https://learn.microsoft.com/en-us/azure/developer/java/spring-framework/spring-boot-starter-for-azure-active-directory-developer-guide?tabs=SpringCloudAzure5x)
   - Implements [Hibernate Validator Engine](https://hibernate.org/validator/) for API RequestBody validation.
