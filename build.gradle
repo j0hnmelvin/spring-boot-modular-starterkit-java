@@ -102,7 +102,7 @@ subprojects {
 	}
 
 	dependencies {
-		// Spring Starter Web
+		// Spring Boot Starter Web
 		implementation 'org.springframework.boot:spring-boot-starter-web'
 
 		// Testing
@@ -110,9 +110,23 @@ subprojects {
 		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
 		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
 
-		// Module(s): microsoft-entra-ID-access-resource-server-example
+		/*
+			Start of Module(s): microsoft-entra-ID-access-resource-server-example
+		 */
+
 		implementation 'com.azure.spring:spring-cloud-azure-starter-active-directory:5.10.0'
 		implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
+		// Project Lombok
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+
+		// Hibernate Validator Engine
+		implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+
+		/*
+			End of Module(s): microsoft-entra-ID-access-resource-server-example
+		 */
 	}
 
 	// Packaging Executable and Plain Archives

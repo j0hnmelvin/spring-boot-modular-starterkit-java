@@ -22,7 +22,7 @@ public class AadOAuth2ResourceServerSecurityConfig {
         http.apply(AadResourceServerHttpSecurityConfigurer.aadResourceServer())
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET,"/api/helloworld/no-auth").anonymous()
+                .requestMatchers(HttpMethod.GET).anonymous()
                 .anyRequest().authenticated();
         return http.build();
     }
