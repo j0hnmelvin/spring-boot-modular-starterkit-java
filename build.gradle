@@ -124,6 +124,9 @@ subprojects {
 		// Hibernate Validator Engine
 		implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
 
+		// SpringDoc OpenAPI
+		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+
 		/*
 			End of Module(s): microsoft-entra-ID-access-resource-server-example
 		 */
