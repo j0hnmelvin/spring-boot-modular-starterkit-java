@@ -1,4 +1,4 @@
-package com.jms.boilerplate.config;
+package com.jms.boilerplate.userservice.config;
 
 import com.azure.spring.cloud.autoconfigure.implementation.aad.security.AadResourceServerHttpSecurityConfigurer;
 import org.springframework.context.annotation.Bean;

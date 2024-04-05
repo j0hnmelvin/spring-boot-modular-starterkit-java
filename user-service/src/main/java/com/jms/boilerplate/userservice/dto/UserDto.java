@@ -1,4 +1,4 @@
-package com.jms.boilerplate.dto;
+package com.jms.boilerplate.userservice.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

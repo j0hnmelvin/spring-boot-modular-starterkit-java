@@ -1,4 +1,5 @@
 rootProject.name = 'spring-boot-gradle-java-multi-module-boilerplate'
 include 'app'
-include 'microsoft-entra-ID-protect-resource-server'
+include 'integration-kafka-avro'
+include 'user-service'
 

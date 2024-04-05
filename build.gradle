@@ -39,13 +39,14 @@ def jacocoExclusions = [
 		"**/pojo/*"
 ]
 
-repositories {
-	mavenCentral()
-}
-
 subprojects {
 	repositories {
 		mavenCentral()
+		maven {
+			//TODO - Move to integration-kafka-avro module
+			// AVRO Serializer/DeSerializer
+			url 'https://packages.confluent.io/maven/'
+		}
 	}
 
 	apply plugin: 'java'
@@ -109,27 +110,6 @@ subprojects {
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
 		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
-
-		/*
-			Start of Module(s): microsoft-entra-ID-access-resource-server-example
-		 */
-
-		implementation 'com.azure.spring:spring-cloud-azure-starter-active-directory:5.10.0'
-		implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-
-		// Project Lombok
-		compileOnly 'org.projectlombok:lombok'
-		annotationProcessor 'org.projectlombok:lombok'
-
-		// Hibernate Validator Engine
-		implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
-
-		// SpringDoc OpenAPI
-		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
-
-		/*
-			End of Module(s): microsoft-entra-ID-access-resource-server-example
-		 */
 	}
 
 	// Packaging Executable and Plain Archives
@@ -145,7 +125,7 @@ subprojects {
 	if (it.name == 'app') {
 		bootJar {
 			enabled = true
-			mainClass = 'com.jms.springbootgradlejavaboilerplate.SpringBootGradleJavaBoilerplateApplication'
+			mainClass = 'com.jms.boilerplate.Application'
 		}
 
 		jar {

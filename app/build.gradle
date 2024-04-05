@@ -1,3 +1,4 @@
 dependencies {
-    implementation project(':microsoft-entra-ID-protect-resource-server')
+    implementation project(':integration-kafka-avro')
+    implementation project(':user-service')
 }

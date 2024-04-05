@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "CreateUserEvent",
+  "namespace": "com.jms.boilerplate.integration.event",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "email",
+      "type": "string"
+    }
+  ]
+}

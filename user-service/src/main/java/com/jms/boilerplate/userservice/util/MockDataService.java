@@ -1,6 +1,6 @@
-package com.jms.boilerplate.util;
+package com.jms.boilerplate.userservice.util;
 
-import com.jms.boilerplate.dto.UserDto;
+import com.jms.boilerplate.userservice.dto.UserDto;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;

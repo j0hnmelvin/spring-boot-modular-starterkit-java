@@ -1,8 +1,8 @@
-package com.jms.boilerplate.controller;
+package com.jms.boilerplate.userservice.controller;
 
-import com.jms.boilerplate.dto.UserDto;
-import com.jms.boilerplate.exception.UserNotFoundException;
-import com.jms.boilerplate.service.UserService;
+import com.jms.boilerplate.userservice.dto.UserDto;
+import com.jms.boilerplate.userservice.exception.UserNotFoundException;
+import com.jms.boilerplate.userservice.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;

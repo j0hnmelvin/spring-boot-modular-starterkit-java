@@ -1,0 +1,24 @@
+plugins {
+    // Plugin to auto generate POJO from AVRO Schema on build
+    // https://github.com/davidmc24/gradle-avro-plugin
+    id 'com.github.davidmc24.gradle.plugin.avro' version '1.9.0'
+}
+
+apply plugin: "com.github.davidmc24.gradle.plugin.avro"
+
+dependencies {
+    implementation project(':user-service')
+
+    // Spring Kafka
+    implementation 'org.springframework.kafka:spring-kafka'
+
+    // AVRO
+    implementation 'org.apache.avro:avro:1.11.3'
+
+    // AVRO Serializer/DeSerializer
+    implementation 'io.confluent:kafka-avro-serializer:7.6.0'
+
+    // MapStruct
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+}

@@ -2,7 +2,21 @@ spring:
   application:
     name: spring-boot-gradle-java-boilerplate
 
-  # Module(s): microsoft-entra-ID-access-resource-server-example
+  # Module(s): integration-kafka-avro
+  kafka:
+    bootstrap-servers: http://localhost:9092
+    properties:
+      schema:
+        registry:
+          url: http://localhost:8081
+    consumer:
+      group-id: common
+      enable-auto-commit: true
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+
+  # Module(s): user-service
   cloud:
     azure:
       active-directory:
@@ -10,3 +24,8 @@ spring:
         credential:
           client-id: ${AZURE_CLIENT_ID}
         app-id-uri: ${APP_ID_URI}
+
+# Module(s): integration-kafka-avro
+kafka:
+  topics:
+    create-user-events: create-user-events

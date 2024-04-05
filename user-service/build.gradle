@@ -1,0 +1,14 @@
+dependencies {
+    implementation 'com.azure.spring:spring-cloud-azure-starter-active-directory:5.10.0'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
+    // Project Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Hibernate Validator Engine
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+
+    // SpringDoc OpenAPI
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+}

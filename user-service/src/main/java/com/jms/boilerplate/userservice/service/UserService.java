@@ -1,7 +1,7 @@
-package com.jms.boilerplate.service;
+package com.jms.boilerplate.userservice.service;
 
-import com.jms.boilerplate.dto.UserDto;
-import com.jms.boilerplate.util.MockDataService;
+import com.jms.boilerplate.userservice.dto.UserDto;
+import com.jms.boilerplate.userservice.util.MockDataService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;

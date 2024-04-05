@@ -1,4 +1,4 @@
-package com.jms.boilerplate.exception;
+package com.jms.boilerplate.userservice.exception;
 
 import java.util.HashMap;
 import java.util.Map;
