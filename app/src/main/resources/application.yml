@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-boot-gradle-java-boilerplate
+    name: spring-boot-gradle-java-multi-module-boilerplate
 
   # Module(s): integration-kafka-avro
   kafka:
@@ -10,7 +10,7 @@ spring:
         registry:
           url: http://localhost:8081
     consumer:
-      group-id: common
+      group-id: spring-boot-gradle-java-multi-module-boilerplate
       enable-auto-commit: true
       auto-offset-reset: latest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -24,8 +24,21 @@ spring:
         credential:
           client-id: ${AZURE_CLIENT_ID}
         app-id-uri: ${APP_ID_URI}
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/spring_boot_gradle_java_multi_module_boilerplate
+    username: postgres
+    password: postgres
+  jpa:
+    database: POSTGRESQL
+    generate:
+      ddl: true # https://docs.spring.io/spring-boot/docs/1.1.0.M1/reference/html/howto-database-initialization.html
+    hibernate:
+      ddl-auto: update
 
 # Module(s): integration-kafka-avro
 kafka:
+  consumer:
+    enabled: true
   topics:
     create-user-events: create-user-events

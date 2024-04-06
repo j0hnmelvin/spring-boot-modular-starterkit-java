@@ -43,7 +43,7 @@ subprojects {
 	repositories {
 		mavenCentral()
 		maven {
-			//TODO - Move to integration-kafka-avro module
+			// TODO: Move to integration-kafka-avro module
 			// AVRO Serializer/DeSerializer
 			url 'https://packages.confluent.io/maven/'
 		}
@@ -110,6 +110,21 @@ subprojects {
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
 		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
+
+		// Starter for using Spring Data JPA with Hibernate
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+		// PostgreSQL JDBC Driver
+		implementation 'org.postgresql:postgresql'
+
+		// Project Lombok
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+
+		// MapStruct
+		// NOTE: Add MapStruct dependency after Project Lombok if you are using @Builder, @Data, etc., from Project Lombok
+		implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+		annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 	}
 
 	// Packaging Executable and Plain Archives

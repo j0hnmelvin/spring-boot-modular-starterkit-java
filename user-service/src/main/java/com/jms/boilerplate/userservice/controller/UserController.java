@@ -5,7 +5,6 @@ import com.jms.boilerplate.userservice.exception.UserNotFoundException;
 import com.jms.boilerplate.userservice.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,11 +39,12 @@ public class UserController {
      */
     @GetMapping("/{id}")
     @ResponseBody
-    public Optional<UserDto> getUser(
+    public UserDto getUser(
             @PathVariable
-            String id
+            Long id
     ) {
-        return userService.getUser(id);
+        return userService.getUser(id)
+            .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     /*
@@ -69,13 +69,13 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('APPROLE_Contributor','APPROLE_Admin')")
     public UserDto updateUser(
             @PathVariable
-            String id,
+            Long id,
             @Valid
             @RequestBody
             UserDto userDto
     ) {
         return userService.updateUser(id, userDto)
-                .orElseThrow(() -> new UserNotFoundException(id));
+            .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     /*
@@ -86,9 +86,9 @@ public class UserController {
     @PreAuthorize("hasAuthority('APPROLE_Admin')")
     public UserDto deleteUser(
             @PathVariable
-            String id
+            Long id
     ) {
         return userService.delete(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+            .orElseThrow(() -> new UserNotFoundException(id));
     }
 }

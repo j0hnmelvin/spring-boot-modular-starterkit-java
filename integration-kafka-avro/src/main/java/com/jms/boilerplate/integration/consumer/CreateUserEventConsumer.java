@@ -5,9 +5,15 @@ import com.jms.boilerplate.integration.mapper.UserMapper;
 import com.jms.boilerplate.userservice.dto.UserDto;
 import com.jms.boilerplate.userservice.service.UserService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+@ConditionalOnProperty(
+    prefix = "kafka.consumer",
+    name = {"enabled"},
+    matchIfMissing = true
+)
 @Service
 public class CreateUserEventConsumer {
     private final UserService userService;

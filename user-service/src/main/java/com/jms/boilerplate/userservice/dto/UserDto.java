@@ -1,7 +1,9 @@
 package com.jms.boilerplate.userservice.dto;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +17,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class UserDto {
-    @NotEmpty
-    String id;
+    @Nullable
+    Long id;
 
     @NotEmpty
     String name;
@@ -24,4 +26,10 @@ public class UserDto {
     @NotEmpty
     @Email
     String email;
+
+    @Nullable
+    Instant createdAt;
+
+    @Nullable
+    Instant updatedAt;
 }

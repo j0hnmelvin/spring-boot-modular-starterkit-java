@@ -1,7 +1,9 @@
 package com.jms.boilerplate.userservice.service;
 
+import com.jms.boilerplate.userservice.domain.User;
 import com.jms.boilerplate.userservice.dto.UserDto;
-import com.jms.boilerplate.userservice.util.MockDataService;
+import com.jms.boilerplate.userservice.mapper.UserMapper;
+import com.jms.boilerplate.userservice.repo.UserRepo;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -9,42 +11,44 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private final MockDataService mockDataService;
+    private final UserRepo userRepo;
 
-    public UserService(MockDataService mockDataService) {
-        this.mockDataService = mockDataService;
+    public UserService(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 
     public List<UserDto> getUsers() {
-        return this.mockDataService.users;
+        return this.userRepo.findAll().stream().map(user -> {
+            return UserMapper.INSTANCE.toUserDto(user);
+        }).toList();
     }
 
-    public Optional<UserDto> getUser(String id) {
-        return this.mockDataService.users.stream()
-                .filter(user -> user.getId().equals(id))
-                .findFirst();
-    }
-
-    public UserDto createUser(UserDto userDto) {
-        if (!this.mockDataService.users.contains(userDto)) {
-            this.mockDataService.users.add(userDto);
-        }
-        return userDto;
-    }
-
-    public Optional<UserDto> updateUser(String id, UserDto userDto) {
-        return this.getUser(id).map(user -> {
-            int index = this.mockDataService.users.indexOf(user);
-            this.mockDataService.users.set(index, userDto);
-            return userDto;
+    public Optional<UserDto> getUser(Long id) {
+        return this.userRepo.findById(id).map(user -> {
+            return UserMapper.INSTANCE.toUserDto(user);
         });
     }
 
-    public Optional<UserDto> delete(String id) {
-        return this.getUser(id).map(user -> {
-            int index = this.mockDataService.users.indexOf(user);
-            this.mockDataService.users.remove(index);
-            return user;
+    public UserDto createUser(UserDto userDto) {
+        User user = UserMapper.INSTANCE.toUser(userDto);
+        // TODO: Handle ERROR: duplicate key value violates unique constraint "" Detail: Key (email)=() already exists.]
+        user = this.userRepo.save(user);  // Save the User object directly
+        return UserMapper.INSTANCE.toUserDto(user);  // Map the saved User object
+    }
+
+    public Optional<UserDto> updateUser(Long id, UserDto userDto) {
+        return this.userRepo.findById(id).map(user -> {
+            UserMapper.INSTANCE.updateUserFromDto(userDto, user);
+            return UserMapper.INSTANCE.toUserDto(
+                this.userRepo.save(user)
+            );
+        });
+    }
+
+    public Optional<UserDto> delete(Long id) {
+        return this.userRepo.findById(id).map(user -> {
+            this.userRepo.delete(user);
+            return UserMapper.INSTANCE.toUserDto(user);
         });
     }
 }

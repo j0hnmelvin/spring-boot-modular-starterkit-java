@@ -1,7 +1,7 @@
 package com.jms.boilerplate.userservice.exception;
 
 public class UserNotFoundException extends RuntimeException {
-    public UserNotFoundException(String id) {
-        super("User not found with ID: " + id);
+    public UserNotFoundException(Long id) {
+        super("User not found with ID: " + id.toString());
     }
 }
