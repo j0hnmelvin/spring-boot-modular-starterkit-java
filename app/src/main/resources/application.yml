@@ -31,10 +31,11 @@ spring:
     password: postgres
   jpa:
     database: POSTGRESQL
+    # https://docs.spring.io/spring-boot/docs/1.1.0.M1/reference/html/howto-database-initialization.html
     generate:
-      ddl: true # https://docs.spring.io/spring-boot/docs/1.1.0.M1/reference/html/howto-database-initialization.html
+      ddl: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: update # NOTE: Flyway database migrations are executed on startup
 
 # Module(s): integration-kafka-avro
 kafka:

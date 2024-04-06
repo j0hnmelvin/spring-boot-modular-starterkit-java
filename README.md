@@ -13,17 +13,6 @@ This is a Spring Boot Gradle Java Multi Module boilerplate with the following mo
   - Depends on no other modules
 
 ## Features
-- [x] Static Code Analysis (SCA) Tools: 
-  - [x] [Spotless](https://github.com/diffplug/spotless) - Code Formatter
-  - [x] [JaCoCo](https://github.com/jacoco/jacoco) - Java Code Coverage Library
-  - [x] [SonarQube](https://plugins.gradle.org/plugin/org.sonarqube) - Static Code Analysis
-- [x] Boilerplate Code Generation Tools:
-  - [x] [Project Lombok](https://hibernate.org/validator/)
-  - [x] [MapStruct](https://mapstruct.org)
-- [x] Data Validation Library:
-  - [x] [Hibernate Validator Engine](https://hibernate.org/validator/) - Java Bean Validation
-- [x] Database:
-  - [x] [PostgreSQL](https://www.postgresql.org/)
 - [x] Integration Patterns:
   - [x] REST API:
     - [x] [Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/developer/java/spring-framework/spring-boot-starter-for-azure-active-directory-developer-guide?tabs=SpringCloudAzure5x) - Protect Java Web API
@@ -31,3 +20,15 @@ This is a Spring Boot Gradle Java Multi Module boilerplate with the following mo
   - [x] Event-Driven Architecture (EDA):
     - [x] [Apache Kafka](https://kafka.apache.org) - Event Streaming
     - [x] [Apache Avro](https://avro.apache.org) - Data Serialization Format
+- [x] Database:
+  - [x] [PostgreSQL](https://www.postgresql.org/)
+  - [x] [Flyway](https://flywaydb.org/documentation/usage/gradle/) - Database Migration Tool
+- [x] Boilerplate Code Generation Tools:
+  - [x] [Project Lombok](https://hibernate.org/validator/)
+  - [x] [MapStruct](https://mapstruct.org)
+- [x] Data Validation Library:
+  - [x] [Hibernate Validator Engine](https://hibernate.org/validator/) - Java Bean Validation
+- [x] Static Code Analysis (SCA) Tools:
+  - [x] [Spotless](https://github.com/diffplug/spotless) - Code Formatter
+  - [x] [JaCoCo](https://github.com/jacoco/jacoco) - Java Code Coverage Library
+  - [x] [SonarQube](https://plugins.gradle.org/plugin/org.sonarqube) - Static Code Analysis
