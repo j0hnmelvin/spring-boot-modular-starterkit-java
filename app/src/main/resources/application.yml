@@ -4,11 +4,11 @@ spring:
 
   # Module(s): integration-kafka-avro
   kafka:
-    bootstrap-servers: http://localhost:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     properties:
       schema:
         registry:
-          url: http://localhost:8081
+          url: ${KAFKA_SCHEMA_REGISTRY}
     consumer:
       group-id: spring-boot-gradle-java-multi-module-boilerplate
       enable-auto-commit: true
@@ -22,13 +22,13 @@ spring:
       active-directory:
         enabled: true
         credential:
-          client-id: ${AZURE_CLIENT_ID}
-        app-id-uri: ${APP_ID_URI}
+          client-id: ${AZURE_AD_CREDENTIAL_CLIENT_ID}
+        app-id-uri: ${AZURE_AD_APP_ID_URI}
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/spring_boot_gradle_java_multi_module_boilerplate
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DATABASE}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   jpa:
     database: POSTGRESQL
     # https://docs.spring.io/spring-boot/docs/1.1.0.M1/reference/html/howto-database-initialization.html
