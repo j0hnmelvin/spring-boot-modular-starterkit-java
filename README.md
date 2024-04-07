@@ -66,7 +66,6 @@ git clone https://github.com/j0hnmelvin/spring-boot-modular-starterkit-java.git
     AZURE_AD_APP_ID_URI= \
     ./gradlew bootRun
     ```
-    This command builds the application JAR file.
 
 ### Run Application as Docker Container
 
@@ -88,7 +87,7 @@ git clone https://github.com/j0hnmelvin/spring-boot-modular-starterkit-java.git
     - [Apache ZooKeeper](https://zookeeper.apache.org)
     - [Apache Kafka](https://kafka.apache.org)
     - [Confluent Schema Registry](https://docs.confluent.io/platform/current/schema-registry/index.html)
-    - **spring-boot-gradle-java-multi-module-boilerplate-application** - The main application.
+    - **spring-boot-modular-starterkit-java** - Main Application
 
  
 3. Run Docker Containers
