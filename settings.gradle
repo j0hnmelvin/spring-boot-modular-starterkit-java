@@ -1,4 +1,4 @@
-rootProject.name = 'spring-boot-gradle-java-multi-module-boilerplate'
+rootProject.name = 'spring-boot-modular-starterkit-java'
 include 'app'
 include 'integration-kafka-avro'
 include 'user-service'

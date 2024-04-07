@@ -35,7 +35,7 @@ We have set `cleanDisabled` to `true` since flywayClean will drop all objects in
 ### Sample Usage:
 
 ```
-% ./gradlew flywayInfo -Pflyway.url=jdbc:postgresql://localhost:5432/spring_boot_gradle_java_multi_module_boilerplate -Pflyway.user=postgres -Pflyway.password=postgres -Pflyway.schemas=public
+% ./gradlew flywayInfo -Pflyway.url=jdbc:postgresql://localhost:5432/spring-boot-modular-starterkit-java -Pflyway.user=postgres -Pflyway.password=postgres -Pflyway.schemas=public
 
 > Task :user-service:flywayInfo
 Schema version: << Empty Schema >>
@@ -50,14 +50,14 @@ BUILD SUCCESSFUL in 1s
 ```
 
 ```
-% ./gradlew flywayMigrate -Pflyway.url=jdbc:postgresql://localhost:5432/spring_boot_gradle_java_multi_module_boilerplate -Pflyway.user=postgres -Pflyway.password=postgres -Pflyway.schemas=public
+% ./gradlew flywayMigrate -Pflyway.url=jdbc:postgresql://localhost:5432/spring-boot-modular-starterkit-java -Pflyway.user=postgres -Pflyway.password=postgres -Pflyway.schemas=public
 
 BUILD SUCCESSFUL in 812ms
 1 actionable task: 1 executed
 ```
 
 ```
-% ./gradlew flywayInfo -Pflyway.url=jdbc:postgresql://localhost:5432/spring_boot_gradle_java_multi_module_boilerplate -Pflyway.user=postgres -Pflyway.password=postgres -Pflyway.schemas=public   
+% ./gradlew flywayInfo -Pflyway.url=jdbc:postgresql://localhost:5432/spring-boot-modular-starterkit-java -Pflyway.user=postgres -Pflyway.password=postgres -Pflyway.schemas=public   
 
 > Task :user-service:flywayInfo
 Schema version: 1.0

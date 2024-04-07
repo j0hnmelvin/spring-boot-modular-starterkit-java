@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-boot-gradle-java-multi-module-boilerplate
+    name: spring-boot-modular-starterkit-java
 
   # Module(s): integration-kafka-avro
   kafka:
@@ -26,7 +26,7 @@ spring:
         app-id-uri: ${AZURE_AD_APP_ID_URI}
   datasource:
     platform: postgres
-    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DATABASE}
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
   jpa:

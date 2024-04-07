@@ -7,9 +7,10 @@ services:
       - virtual-net
     environment:
       POSTGRES_PASSWORD: postgres  # Set password environment variable
-      POSTGRES_DB: spring_boot_gradle_java_multi_module_boilerplate  # Set database name environment variable
+      POSTGRES_DB: spring_boot_modular_starterkit_java  # Set database name environment variable
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Persistent storage for Postgres data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d # Maps a local directory (./docker-entrypoint-initdb.d) to the container's initialization scripts directory, allowing customization of database setup.
+      - postgres_data:/var/lib/postgresql/data  # Persistent storage for Postgres data across container restarts
 
   zookeeper:
     image: confluentinc/cp-zookeeper
@@ -68,17 +69,15 @@ services:
     hostname: application
     container_name: application
     depends_on:
-      - schemaregistry
       - postgres
+      - schemaregistry
     ports:
       - "8080:8080"  # Replace with your application port (if applicable)
     networks:
       - virtual-net
     environment:
-      POSTGRES_HOST: host.docker.internal  # Using recommended method
-      # Alternatively (if not using host.docker.internal)
-      # POSTGRES_HOST: 172.17.0.1  # Replace with your bridge IP if needed
-      POSTGRES_DATABASE: spring_boot_gradle_java_multi_module_boilerplate
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: spring_boot_modular_starterkit_java
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092

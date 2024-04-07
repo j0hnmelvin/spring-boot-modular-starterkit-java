@@ -52,7 +52,7 @@ public class UserController {
      */
     @PostMapping("")
     @ResponseBody
-    @PreAuthorize("hasAnyAuthority('APPROLE_Contributor','APPROLE_Admin')")
+    @PreAuthorize("hasAnyAuthority('APPROLE_FD.Dashboard.Admin','APPROLE_FD.OSO.ADMIN')")
     public UserDto createUser(
             @Valid
             @RequestBody
@@ -66,7 +66,7 @@ public class UserController {
      */
     @PutMapping("/{id}")
     @ResponseBody
-    @PreAuthorize("hasAnyAuthority('APPROLE_Contributor','APPROLE_Admin')")
+    @PreAuthorize("hasAnyAuthority('APPROLE_FD.Dashboard.Admin','APPROLE_FD.OSO.ADMIN')")
     public UserDto updateUser(
             @PathVariable
             Long id,
@@ -83,7 +83,7 @@ public class UserController {
      */
     @DeleteMapping("/{id}")
     @ResponseBody
-    @PreAuthorize("hasAuthority('APPROLE_Admin')")
+    @PreAuthorize("hasAnyAuthority('APPROLE_FD.Dashboard.Admin','APPROLE_FD.OSO.ADMIN')")
     public UserDto deleteUser(
             @PathVariable
             Long id
