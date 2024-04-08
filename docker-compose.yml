@@ -63,9 +63,9 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'kafka:29092'
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
 
-  # Java Application Service
+  # Application (JAVA) Service
   application:
-    build: .  # Replace with the path to your Java application Dockerfile
+    build: .  # Replace with the path to your application Dockerfile
     hostname: application
     container_name: application
     depends_on:

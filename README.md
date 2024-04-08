@@ -23,7 +23,8 @@ This project template is your launchpad for building modular Spring Boot applica
   - [x] [Flyway](https://flywaydb.org/documentation/usage/gradle/) - Database Migration Tool
 - [x] Integration Patterns:
   - [x] REST API:
-    - [x] [Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/developer/java/spring-framework/spring-boot-starter-for-azure-active-directory-developer-guide?tabs=SpringCloudAzure5x) - Protect Java Web API
+    - [x] Security:
+      - [Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/developer/java/spring-framework/spring-boot-starter-for-azure-active-directory-developer-guide?tabs=SpringCloudAzure5x) - Secure API Endpoints
     - [x] [SpringDoc OpenAPI](https://springdoc.org) - Code-Driven API Documentation
   - [x] Event-Driven Architecture (EDA):
     - [x] [Apache Kafka](https://kafka.apache.org) - Event Streaming
@@ -36,7 +37,7 @@ This project template is your launchpad for building modular Spring Boot applica
 - [x] Static Code Analysis (SCA) Tools:
   - [x] [Spotless](https://github.com/diffplug/spotless) - Code Formatter
   - [x] [JaCoCo](https://github.com/jacoco/jacoco) - Java Code Coverage Library
-  - [x] [SonarQube](https://plugins.gradle.org/plugin/org.sonarqube) - Static Code Analysis
+  - [x] [SonarQube](https://plugins.gradle.org/plugin/org.sonarqube) - Comprehensive Static Code Analysis
 
 ## Getting Started
 
@@ -47,14 +48,16 @@ git clone https://github.com/j0hnmelvin/spring-boot-modular-starterkit-java.git
 
 ### Run Application (without Docker)
 
-1. Build Application JAR
+**1. Build Application JAR**
+
     ```
     ./gradlew clean build
     ```
     This command builds the application JAR file.
 
 
-2. Run Application
+**2. Run Application**
+
     ```
     POSTGRES_HOST=localhost \
     POSTGRES_USER=postgres \
@@ -62,42 +65,38 @@ git clone https://github.com/j0hnmelvin/spring-boot-modular-starterkit-java.git
     POSTGRES_DB=spring_boot_modular_starterkit_java \
     KAFKA_BOOTSTRAP_SERVERS=localhost:9092 \
     KAFKA_SCHEMA_REGISTRY=http://localhost:8081 \
-    AZURE_AD_CREDENTIAL_CLIENT_ID= \
-    AZURE_AD_APP_ID_URI= \
+    AZURE_AD_CREDENTIAL_CLIENT_ID=PLACEHOLDER \
+    AZURE_AD_APP_ID_URI=PLACEHOLDER \
     ./gradlew bootRun
     ```
+Note: Replace the `PLACEHOLDER` values for `AZURE_AD_CREDENTIAL_CLIENT_ID` and `AZURE_AD_APP_ID_URI` with your actual Azure AD credentials before running the application.
 
 ### Run Application as Docker Container
 
-1. Build Application JAR
-    
-    ```
-    ./gradlew clean build
-    ```
-    This command builds the application JAR file.
+**1. Build Application JAR and Docker Images**
 
-    
-2. Build Docker Images
+```
+docker compose build
+```
 
-    ```
-    docker compose build
-    ```
-    This command builds Docker images for the following components based on the configurations defined in [docker-compose.yml](./docker-compose.yml):
-    - [PostgreSQL](https://www.postgresql.org/)
-    - [Apache ZooKeeper](https://zookeeper.apache.org)
-    - [Apache Kafka](https://kafka.apache.org)
-    - [Confluent Schema Registry](https://docs.confluent.io/platform/current/schema-registry/index.html)
-    - **spring-boot-modular-starterkit-java** - Main Application
-
- 
-3. Run Docker Containers
-
-    ```
-    docker compose up -d
-    ```
-    This command starts the Docker containers in detached mode (-d), running in the background.
+This command builds Docker images for the following components based on the configurations defined in [docker-compose.yml](./docker-compose.yml):
+- [PostgreSQL](https://www.postgresql.org/)
+- [Apache ZooKeeper](https://zookeeper.apache.org)
+- [Apache Kafka](https://kafka.apache.org)
+- [Confluent Schema Registry](https://docs.confluent.io/platform/current/schema-registry/index.html)
+- spring-boot-modular-starterkit-java - **Main Application**
+  - Builds application based on the configurations defined in [Dockerfile](./Dockerfile).
 
 
-4. Additional Information
+**2. Run Docker Containers**
+
+```
+docker compose up -d
+```
+
+This command starts the Docker containers in detached mode (-d), running in the background.
+
+
+**Additional Information**
 
    If you need to modify the application environment variables, adjust any relevant configuration in [docker-compose.yml](./docker-compose.yml).
