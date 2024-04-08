@@ -50,25 +50,24 @@ git clone https://github.com/j0hnmelvin/spring-boot-modular-starterkit-java.git
 
 **1. Build Application JAR**
 
-    ```
-    ./gradlew clean build
-    ```
-    This command builds the application JAR file.
-
+```
+./gradlew clean build
+```
+This command builds the application JAR file.
 
 **2. Run Application**
 
-    ```
-    POSTGRES_HOST=localhost \
-    POSTGRES_USER=postgres \
-    POSTGRES_PASSWORD=postgres \
-    POSTGRES_DB=spring_boot_modular_starterkit_java \
-    KAFKA_BOOTSTRAP_SERVERS=localhost:9092 \
-    KAFKA_SCHEMA_REGISTRY=http://localhost:8081 \
-    AZURE_AD_CREDENTIAL_CLIENT_ID=PLACEHOLDER \
-    AZURE_AD_APP_ID_URI=PLACEHOLDER \
-    ./gradlew bootRun
-    ```
+```
+POSTGRES_HOST=localhost \
+POSTGRES_USER=postgres \
+POSTGRES_PASSWORD=postgres \
+POSTGRES_DB=spring_boot_modular_starterkit_java \
+KAFKA_BOOTSTRAP_SERVERS=localhost:9092 \
+KAFKA_SCHEMA_REGISTRY=http://localhost:8081 \
+AZURE_AD_CREDENTIAL_CLIENT_ID=PLACEHOLDER \
+AZURE_AD_APP_ID_URI=PLACEHOLDER \
+./gradlew bootRun
+```
 Note: Replace the `PLACEHOLDER` values for `AZURE_AD_CREDENTIAL_CLIENT_ID` and `AZURE_AD_APP_ID_URI` with your actual Azure AD credentials before running the application.
 
 ### Run Application as Docker Container
@@ -78,7 +77,6 @@ Note: Replace the `PLACEHOLDER` values for `AZURE_AD_CREDENTIAL_CLIENT_ID` and `
 ```
 docker compose build
 ```
-
 This command builds Docker images for the following components based on the configurations defined in [docker-compose.yml](./docker-compose.yml):
 - [PostgreSQL](https://www.postgresql.org/)
 - [Apache ZooKeeper](https://zookeeper.apache.org)
@@ -87,16 +85,14 @@ This command builds Docker images for the following components based on the conf
 - spring-boot-modular-starterkit-java - **Main Application**
   - Builds application based on the configurations defined in [Dockerfile](./Dockerfile).
 
-
 **2. Run Docker Containers**
 
 ```
 docker compose up -d
 ```
-
 This command starts the Docker containers in detached mode (-d), running in the background.
 
 
 **Additional Information**
 
-   If you need to modify the application environment variables, adjust any relevant configuration in [docker-compose.yml](./docker-compose.yml).
+ If you need to modify the application environment variables, adjust any relevant configuration in [docker-compose.yml](./docker-compose.yml).
