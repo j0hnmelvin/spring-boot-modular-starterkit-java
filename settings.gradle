@@ -1,5 +1,8 @@
 rootProject.name = 'spring-boot-modular-starterkit-java'
-include 'app'
+include 'app-mongodb'
+include 'app-postgres'
 include 'integration-kafka-avro'
 include 'user-service'
+include 'user-service-postgres'
+include 'user-service-mongodb'
 

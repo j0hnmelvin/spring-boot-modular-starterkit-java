@@ -134,10 +134,19 @@ subprojects {
 		archiveClassifier = '' // To Ignore Plain Archive
 	}
 
-	if (it.name == 'app') {
+	if (it.name == 'app-mongodb') {
 		bootJar {
 			enabled = true
-			mainClass = 'com.jms.boilerplate.Application'
+			mainClass = 'com.jms.boilerplate.MongoDBApplication'
+		}
+
+		jar {
+			enabled = false // Do not disable the jar task when creating native images.
+		}
+	} else if (it.name == 'app-postgres') {
+		bootJar {
+			enabled = true
+			mainClass = 'com.jms.boilerplate.PostgresApplication'
 		}
 
 		jar {

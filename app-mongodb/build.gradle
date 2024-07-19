@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':integration-kafka-avro')
+    implementation project(':user-service')
+    implementation project(':user-service-mongodb')
+}

@@ -1,0 +1,50 @@
+name: spring-boot-modular-starterkit-java-postgres
+
+services:
+  postgres:
+    image: postgres:latest  # Replace with a specific tag if needed
+    hostname: postgres
+    container_name: postgres
+    ports:
+      - 5432:5432
+    networks:
+      - virtual-net-postgres
+    environment:
+      POSTGRES_PASSWORD: postgres  # Set password environment variable
+      POSTGRES_DB: spring_boot_modular_starterkit_java  # Set database name environment variable
+      # This optional environment variable can be used to define a different name for the default database that is created when the image is first started.
+      # If it is not specified, then the value of POSTGRES_USER will be used.
+    volumes:
+#      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d # Maps a local directory (./docker-entrypoint-initdb.d) to the container's initialization scripts directory, allowing customization of database setup.
+#      - postgres_data:/var/lib/postgresql/data # Persistent storage for Postgres data across container restarts
+      - ./local-docker-volumes/postgress:/data/postgress # Persistent storage for Postgres data across container restarts
+
+  # Application (JAVA) Service
+  application:
+    build:  # Replace with the path to your application Dockerfile
+      context: .
+      dockerfile: postgres.Dockerfile
+    hostname: app-postgres
+    container_name: app-postgres
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"  # Replace with your application port (if applicable)
+    networks:
+      - virtual-net-postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: spring_boot_modular_starterkit_java
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      AZURE_AD_CREDENTIAL_CLIENT_ID: PLACEHOLDER
+      AZURE_AD_APP_ID_URI: PLACEHOLDER
+    volumes:
+      - ./local-docker-volumes/app-postgres:/data/app-postgres
+
+networks:
+  virtual-net-postgres:
+
+#volumes:
+#  postgres_data: {}

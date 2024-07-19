@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "CreateUserEvent",
-  "namespace": "com.jms.boilerplate.integration.event",
+  "namespace": "com.jms.boilerplate.integration.kafka.avro.event",
   "fields": [
     {
       "name": "name",
