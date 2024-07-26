@@ -5,6 +5,7 @@ import com.jms.boilerplate.userservice.exception.UserNotFoundException;
 import com.jms.boilerplate.userservice.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "*") // Allow all origins for development
 @RequestMapping("/api/users")
 public class UserController {
 
