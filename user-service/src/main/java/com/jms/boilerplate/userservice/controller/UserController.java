@@ -80,7 +80,7 @@ public class UserController {
             @PathVariable
             String id
     ) {
-        return userService.delete(id)
+        return userService.deleteUser(id)
             .orElseThrow(() -> new UserNotFoundException(id));
     }
 }

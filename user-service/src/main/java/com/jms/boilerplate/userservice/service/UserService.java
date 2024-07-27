@@ -38,7 +38,7 @@ public class UserService {
         return this.userDao.updateUser(id, userDto);
     }
 
-    public Optional<UserDto> delete(String id) {
+    public Optional<UserDto> deleteUser(String id) {
         return this.userDao.findById(id).map(userDto -> {
             this.userDao.delete(userDto);
             return userDto;

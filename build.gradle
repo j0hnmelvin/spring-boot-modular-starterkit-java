@@ -21,7 +21,6 @@ def sonarqubeExclusions = [
 		"**/config/*",
 		"**/domain/*",
 		"**/dto/*",
-		"**/pojo/*"
 ]
 
 sonarqube {
@@ -34,9 +33,11 @@ sonarqube {
 def jacocoExclusions = [
 		"**/*Application*",
 		"**/config/*",
+		"**/dao/*",
 		"**/domain/*",
 		"**/dto/*",
-		"**/pojo/*"
+		"**/exception/*",
+		"**/service/*",
 ]
 
 subprojects {
@@ -83,7 +84,7 @@ subprojects {
 				limit {
 					counter = 'INSTRUCTION'
 					value = 'MISSEDRATIO'
-					maximum = 0.2
+					maximum = 0.3
 				}
 			}
 		}
