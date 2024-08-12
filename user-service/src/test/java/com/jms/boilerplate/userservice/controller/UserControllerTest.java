@@ -1,7 +1,6 @@
 package com.jms.boilerplate.userservice.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.jms.boilerplate.userservice.dto.UserDto;
 import com.jms.boilerplate.userservice.exception.UserNotFoundException;

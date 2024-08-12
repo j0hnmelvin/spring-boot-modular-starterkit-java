@@ -1,12 +1,11 @@
-package com.jms.boilerplate.postgresuserservice.domain;
+package com.jms.jobmarketplace.domain;
 
-import com.jms.boilerplate.userservice.domain.User;
+import com.jms.jobmarketplace.constant.JMUserType;
+import jakarta.persistence.*;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.AccessLevel;
@@ -24,18 +23,23 @@ import org.springframework.data.annotation.LastModifiedDate;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Users")
-public class UserImpl implements User {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    String id;
+@Table(name = "JM_Users")
+public class JMUser {
     @Id
     String id;
 
-    String name;
+    @Column(nullable = false)
+    String firstName;
 
-    @Column(unique = true)
+    @Column(nullable = false)
+    String lastName;
+
+    @Column(nullable = false, unique = true)
     String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    JMUserType userType;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

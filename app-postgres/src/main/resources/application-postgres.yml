@@ -22,6 +22,15 @@ spring:
       ddl: false
     hibernate:
       ddl-auto: update # NOTE: Flyway database migrations are executed on startup
+  flyway:
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
+    user: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    clean-disabled: true
+    baseline-version: 1.0
+    baseline-description: "Base Version"
+    baseline-on-migrate: true
+    locations: filesystem:db/migrations/user-service-postgres
 
 # Module: integration-kafka-avro
 kafka:

@@ -88,20 +88,20 @@ Note:Replace the `PLACEHOLDER` values for `AZURE_AD_CREDENTIAL_CLIENT_ID` and `A
 **1. Build Application JAR and Docker Images**
 
 ```
-docker compose -f docker-compose________.yml build
+docker compose -f docker/docker-compose________.yml build
 ```
-For example, `docker compose -f docker-compose-postgres-kafka.yml build` command builds Docker images for the following components based on the configurations defined in [docker-compose-postgres-kafka.yml](./docker-compose-postgres-kafka.yml):
+For example, `docker compose -f docker/docker-compose-postgres-kafka.yml build` command builds Docker images for the following components based on the configurations defined in [docker-compose-postgres-kafka.yml](docker/docker-compose-postgres-kafka.yml):
 - [PostgreSQL](https://www.postgresql.org/)
 - [Apache ZooKeeper](https://zookeeper.apache.org)
 - [Apache Kafka](https://kafka.apache.org)
 - [Confluent Schema Registry](https://docs.confluent.io/platform/current/schema-registry/index.html)
 - spring-boot-modular-starterkit-java-postgres-kafka - **Main Application**
-  - Builds application based on the configurations defined in [postgres.Dockerfile](./postgres.Dockerfile).
+  - Builds application based on the configurations defined in [postgres.Dockerfile](docker/postgres.Dockerfile).
 
 **2. Run Docker Containers**
 
 ```
-docker compose -f docker-compose________.yml up -d
+docker compose -f docker/docker-compose________.yml up -d
 ```
 This command starts the Docker containers in detached mode (-d), running in the background.
 

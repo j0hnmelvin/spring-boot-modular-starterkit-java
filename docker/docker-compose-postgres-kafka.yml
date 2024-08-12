@@ -1,19 +1,22 @@
-name: spring-boot-modular-starterkit-java-mongodb-kafka
+name: spring-boot-modular-starterkit-java-postgres-kafka
 
 services:
-  # https://www.mongodb.com/resources/products/compatibilities/docker
-  mongodb:
-    image: mongo
-    restart: unless-stopped
+  postgres:
+    image: postgres:latest  # Replace with a specific tag if needed
+    hostname: postgres
+    container_name: postgres
     ports:
-      - 27017:27017
+      - 5432:5432
     networks:
-      - virtual-net-mongodb-kafka
+      - virtual-net-postgres-kafka
     environment:
-      MONGO_INITDB_ROOT_USERNAME: username
-      MONGO_INITDB_ROOT_PASSWORD: password
+      POSTGRES_PASSWORD: postgres  # Set password environment variable
+      POSTGRES_DB: spring_boot_modular_starterkit_java  # Set database name environment variable
+      # This optional environment variable can be used to define a different name for the default database that is created when the image is first started.
+      # If it is not specified, then the value of POSTGRES_USER will be used.
     volumes:
-      - ./local-docker-volumes/mongodb:/data/mongodb
+#      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d # Maps a local directory (./docker-entrypoint-initdb.d) to the container's initialization scripts directory, allowing customization of database setup.
+      - ./local-docker-volumes/postgress:/data/postgress
 
   zookeeper:
     image: confluentinc/cp-zookeeper
@@ -22,7 +25,7 @@ services:
     ports:
       - "2181:2181"
     networks:
-      - virtual-net-mongodb-kafka
+      - virtual-net-postgres-kafka
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -40,7 +43,7 @@ services:
       - "9092:9092"
       - "9101:9101"
     networks:
-      - virtual-net-mongodb-kafka
+      - virtual-net-postgres-kafka
     environment:
       KAFKA_kafka_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
@@ -64,7 +67,7 @@ services:
     ports:
       - "8081:8081"
     networks:
-      - virtual-net-mongodb-kafka
+      - virtual-net-postgres-kafka
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'kafka:29092'
@@ -73,30 +76,30 @@ services:
       - ./local-docker-volumes/schema-registry:/data/schema-registry
 
   # Application (JAVA) Service
-  app-mongodb-kafka:
+  application:
     build: # Replace with the path to your application Dockerfile
-      context: .
-      dockerfile: mongodb.Dockerfile
-    hostname: app-mongodb-kafka
-    container_name: app-mongodb-kafka
+      context: ..
+      dockerfile: ./docker/postgres.Dockerfile
+    hostname: app-postgres-kafka
+    container_name: app-postgres-kafka
     depends_on:
-      - mongodb
+      - postgres
     ports:
       - "8080:8080"  # Replace with your application port (if applicable)
     networks:
-      - virtual-net-mongodb-kafka
+      - virtual-net-postgres
     environment:
-      SPRING_PROFILES_ACTIVE: mongodb-kafka
-      MONGODB_HOST: mongodb
-      MONGODB_DATABASE: spring_boot_modular_starterkit_java
-      MONGODB_USERNAME: username
-      MONGODB_PASSWORD: password
+      SPRING_PROFILES_ACTIVE: postgres-kafka
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: spring_boot_modular_starterkit_java
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       KAFKA_SCHEMA_REGISTRY: http://schema-registry:8081
       AZURE_AD_CREDENTIAL_CLIENT_ID: PLACEHOLDER
       AZURE_AD_APP_ID_URI: PLACEHOLDER
     volumes:
-      - ./local-docker-volumes/app-mongodb-kafka:/data/app-mongodb-kafka
+      - ./local-docker-volumes/app-postgres-kafka:/data/app-postgres-kafka
 
 networks:
-  virtual-net-mongodb-kafka:
+  virtual-net-postgres-kafka:

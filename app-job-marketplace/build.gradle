@@ -1,10 +1,4 @@
 dependencies {
-    implementation project(':user-service')
-    
-    // Execute Flyway database migrations on startup
-    // https://docs.spring.io/spring-boot/docs/1.1.1.RELEASE/reference/html/howto-database-initialization.html#howto-execute-flyway-database-migrations-on-startup
-    implementation ("org.flywaydb:flyway-core")
-
     // Starter for using Spring Data JPA with Hibernate
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 

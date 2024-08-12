@@ -2,7 +2,9 @@
 
 We are using [Flyway](https://flywaydb.org/documentation/usage/gradle/) an open-source tool for database migrations.
 
-### Gradle Tasks:
+### Flyway Gradle Task:
+
+Prerequisite: [Setup Flyway Gradle Plugin](https://documentation.red-gate.com/fd/gradle-task-184127407.html)
 
 #### flywayInfo
 
@@ -37,7 +39,7 @@ We have set `cleanDisabled` to `true` since flywayClean will drop all objects in
 ```
 % ./gradlew flywayInfo -Pflyway.url=jdbc:postgresql://localhost:5432/spring-boot-modular-starterkit-java -Pflyway.user=postgres -Pflyway.password=postgres -Pflyway.schemas=public
 
-> Task :user-service:flywayInfo
+> Task :User-service-postgres:flywayInfo
 Schema version: << Empty Schema >>
 +-----------+---------+--------------+------+--------------+---------+----------+
 | Category  | Version | Description  | Type | Installed On | State   | Undoable |
@@ -59,7 +61,7 @@ BUILD SUCCESSFUL in 812ms
 ```
 % ./gradlew flywayInfo -Pflyway.url=jdbc:postgresql://localhost:5432/spring-boot-modular-starterkit-java -Pflyway.user=postgres -Pflyway.password=postgres -Pflyway.schemas=public   
 
-> Task :user-service:flywayInfo
+> Task :User-service-postgres:flywayInfo
 Schema version: 1.0
 +-----------+---------+--------------+------+---------------------+---------+----------+
 | Category  | Version | Description  | Type | Installed On        | State   | Undoable |

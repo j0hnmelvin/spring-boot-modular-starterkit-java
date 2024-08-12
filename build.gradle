@@ -153,6 +153,15 @@ subprojects {
 		jar {
 			enabled = false // Do not disable the jar task when creating native images.
 		}
+	} else if (it.name == 'app-job-marketplace') {
+		bootJar {
+			enabled = true
+			mainClass = 'com.jms.jobmarketplace.JobMarketplaceApplication'
+		}
+
+		jar {
+			enabled = false // Do not disable the jar task when creating native images.
+		}
 	}
 
 	test {

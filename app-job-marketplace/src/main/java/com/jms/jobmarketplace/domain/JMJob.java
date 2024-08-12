@@ -1,12 +1,7 @@
-package com.jms.boilerplate.postgresuserservice.domain;
+package com.jms.jobmarketplace.domain;
 
-import com.jms.boilerplate.userservice.domain.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
+import com.jms.jobmarketplace.constant.JMJobStatus;
+import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.AccessLevel;
@@ -24,18 +19,40 @@ import org.springframework.data.annotation.LastModifiedDate;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Users")
-public class UserImpl implements User {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    String id;
+@Table(name = "JM_Jobs")
+public class JMJob {
     @Id
     String id;
 
-    String name;
+//    @ManyToOne
+//    @JoinColumn(name = "poster_id")
+//    JMUser poster;
+    @Column(nullable = false)
+    String postedByUserId;
 
-    @Column(unique = true)
-    String email;
+    @Column(nullable = false)
+    String title;
+
+    @Column(nullable = false)
+    String description;
+
+    @Column(nullable = false)
+    String requirements;
+
+    @Column(nullable = false)
+    Double minBid;
+
+    @Column(nullable = false)
+    Instant expirationDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    JMJobStatus status;
+
+    // For Statistics
+    Integer totalBids;
+    Double curMinBid;
+    String curMinBidUserId;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -49,6 +66,8 @@ public class UserImpl implements User {
     private void prePersist() {
         this.id = UUID.randomUUID().toString();
 
+        this.status = JMJobStatus.OPEN;
+
         Instant now = Instant.now();
         this.createdAt = now;
         this.updatedAt = now;
@@ -58,4 +77,5 @@ public class UserImpl implements User {
     private void preUpdate() {
         this.updatedAt = Instant.now();
     }
+
 }

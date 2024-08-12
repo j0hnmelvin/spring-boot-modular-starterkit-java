@@ -18,8 +18,8 @@ services:
   # Application (JAVA) Service
   application:
     build: # Replace with the path to your application Dockerfile
-      context: .
-      dockerfile: mongodb.Dockerfile
+      context: ..
+      dockerfile: ./docker/mongodb.Dockerfile
     hostname: app-mongodb
     container_name: app-mongodb
     depends_on:
