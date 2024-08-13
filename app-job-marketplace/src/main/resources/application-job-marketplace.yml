@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: spring-boot-app-job-marketplace
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    database: POSTGRESQL
+    # https://docs.spring.io/spring-boot/docs/1.1.0.M1/reference/html/howto-database-initialization.html
+    generate:
+      ddl: false
+    hibernate:
+      ddl-auto: update # NOTE: Flyway database migrations are executed on startup

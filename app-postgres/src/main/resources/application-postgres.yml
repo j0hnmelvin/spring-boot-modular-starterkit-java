@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: spring-boot-modular-starterkit-java
+
+  # Module: user-service
+  cloud:
+    azure:
+      active-directory:
+        enabled: true
+        credential:
+          client-id: ${AZURE_AD_CREDENTIAL_CLIENT_ID}
+        app-id-uri: ${AZURE_AD_APP_ID_URI}
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    database: POSTGRESQL
+    # https://docs.spring.io/spring-boot/docs/1.1.0.M1/reference/html/howto-database-initialization.html
+    generate:
+      ddl: false
+    hibernate:
+      ddl-auto: update # NOTE: Flyway database migrations are executed on startup
+  flyway:
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
+    user: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    clean-disabled: true
+    baseline-version: 1.0
+    baseline-description: "Base Version"
+    baseline-on-migrate: true
+    locations: filesystem:db/migrations/user-service-postgres
+
+# Module: integration-kafka-avro
+kafka:
+  consumer:
+    enabled: false
+  topics:
+    create-user-events: create-user-events

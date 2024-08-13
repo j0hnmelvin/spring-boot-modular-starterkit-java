@@ -1,0 +1,48 @@
+name: spring-boot-job-marketplace
+
+services:
+  postgres:
+    image: postgres:latest  # Replace with a specific tag if needed
+    hostname: postgres
+    container_name: postgres
+    ports:
+      - 5432:5432
+    networks:
+      - virtual-net-job-marketplace
+    environment:
+      POSTGRES_PASSWORD: postgres  # Set password environment variable
+      POSTGRES_DB: spring-boot-job-marketplace  # Set database name environment variable
+      # This optional environment variable can be used to define a different name for the default database that is created when the image is first started.
+      # If it is not specified, then the value of POSTGRES_USER will be used.
+    volumes:
+#      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d # Maps a local directory (./docker-entrypoint-initdb.d) to the container's initialization scripts directory, allowing customization of database setup.
+#      - postgres_data:/var/lib/postgresql/data # Persistent storage for Postgres data across container restarts
+      - ./local-docker-volumes/postgress:/data/postgress # Persistent storage for Postgres data across container restarts
+
+  # Application (JAVA) Service
+  application:
+    build:  # Replace with the path to your application Dockerfile
+      context: ..
+      dockerfile: ./docker/job-marketplace.Dockerfile
+    hostname: app-job-marketplace
+    container_name: app-job-marketplace
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"  # Replace with your application port (if applicable)
+    networks:
+      - virtual-net-job-marketplace
+    environment:
+      SPRING_PROFILES_ACTIVE: job-marketplace
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: spring-boot-job-marketplace
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./local-docker-volumes/app-job-marketplace:/data/app-job-marketplace
+
+networks:
+  virtual-net-job-marketplace:
+
+#volumes:
+#  postgres_data: {}

@@ -1,0 +1,102 @@
+name: spring-boot-modular-starterkit-java-mongodb-kafka
+
+services:
+  # https://www.mongodb.com/resources/products/compatibilities/docker
+  mongodb:
+    image: mongo
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    networks:
+      - virtual-net-mongodb-kafka
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./local-docker-volumes/mongodb:/data/mongodb
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - virtual-net-mongodb-kafka
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - ./local-docker-volumes/zookeeper:/data/zookeeper
+
+  kafka:
+    image: confluentinc/cp-kafka
+    hostname: kafka
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:29092"
+      - "9092:9092"
+      - "9101:9101"
+    networks:
+      - virtual-net-mongodb-kafka
+    environment:
+      KAFKA_kafka_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_JMX_PORT: 9101
+      KAFKA_JMX_HOSTNAME: localhost
+    volumes:
+      - ./local-docker-volumes/kafka:/data/kafka
+
+  schemaregistry:
+    image: confluentinc/cp-schema-registry
+    hostname: schema-registry
+    container_name: schema-registry
+    depends_on:
+      - kafka
+    ports:
+      - "8081:8081"
+    networks:
+      - virtual-net-mongodb-kafka
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'kafka:29092'
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    volumes:
+      - ./local-docker-volumes/schema-registry:/data/schema-registry
+
+  # Application (JAVA) Service
+  application:
+    build: # Replace with the path to your application Dockerfile
+      context: ..
+      dockerfile: ./docker/mongodb.Dockerfile
+    hostname: app-mongodb-kafka
+    container_name: app-mongodb-kafka
+    depends_on:
+      - mongodb
+    ports:
+      - "8080:8080"  # Replace with your application port (if applicable)
+    networks:
+      - virtual-net-mongodb-kafka
+    environment:
+      SPRING_PROFILES_ACTIVE: mongodb-kafka
+      MONGODB_HOST: mongodb
+      MONGODB_DATABASE: spring_boot_modular_starterkit_java
+      MONGODB_USERNAME: username
+      MONGODB_PASSWORD: password
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      KAFKA_SCHEMA_REGISTRY: http://schema-registry:8081
+      AZURE_AD_CREDENTIAL_CLIENT_ID: PLACEHOLDER
+      AZURE_AD_APP_ID_URI: PLACEHOLDER
+    volumes:
+      - ./local-docker-volumes/app-mongodb-kafka:/data/app-mongodb-kafka
+
+networks:
+  virtual-net-mongodb-kafka:

@@ -1,0 +1,43 @@
+name: spring-boot-modular-starterkit-java-mongodb
+
+services:
+  # https://www.mongodb.com/resources/products/compatibilities/docker
+  mongodb:
+    image: mongo
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    networks:
+      - virtual-net-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./local-docker-volumes/mongodb:/data/mongodb
+
+  # Application (JAVA) Service
+  application:
+    build: # Replace with the path to your application Dockerfile
+      context: ..
+      dockerfile: ./docker/mongodb.Dockerfile
+    hostname: app-mongodb
+    container_name: app-mongodb
+    depends_on:
+      - mongodb
+    ports:
+      - "8080:8080"  # Replace with your application port (if applicable)
+    networks:
+      - virtual-net-mongodb
+    environment:
+      SPRING_PROFILES_ACTIVE: mongodb
+      MONGODB_HOST: mongodb
+      MONGODB_DATABASE: spring_boot_modular_starterkit_java
+      MONGODB_USERNAME: username
+      MONGODB_PASSWORD: password
+      AZURE_AD_CREDENTIAL_CLIENT_ID: PLACEHOLDER
+      AZURE_AD_APP_ID_URI: PLACEHOLDER
+    volumes:
+      - ./local-docker-volumes/app-mongodb:/data/app-mongodb
+
+networks:
+  virtual-net-mongodb:

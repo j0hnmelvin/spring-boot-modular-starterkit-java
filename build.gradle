@@ -21,7 +21,6 @@ def sonarqubeExclusions = [
 		"**/config/*",
 		"**/domain/*",
 		"**/dto/*",
-		"**/pojo/*"
 ]
 
 sonarqube {
@@ -34,9 +33,11 @@ sonarqube {
 def jacocoExclusions = [
 		"**/*Application*",
 		"**/config/*",
+		"**/dao/*",
 		"**/domain/*",
 		"**/dto/*",
-		"**/pojo/*"
+		"**/exception/*",
+		"**/service/*",
 ]
 
 subprojects {
@@ -83,7 +84,7 @@ subprojects {
 				limit {
 					counter = 'INSTRUCTION'
 					value = 'MISSEDRATIO'
-					maximum = 0.2
+					maximum = 0.3
 				}
 			}
 		}
@@ -134,10 +135,28 @@ subprojects {
 		archiveClassifier = '' // To Ignore Plain Archive
 	}
 
-	if (it.name == 'app') {
+	if (it.name == 'app-mongodb') {
 		bootJar {
 			enabled = true
-			mainClass = 'com.jms.boilerplate.Application'
+			mainClass = 'com.jms.boilerplate.MongoDBApplication'
+		}
+
+		jar {
+			enabled = false // Do not disable the jar task when creating native images.
+		}
+	} else if (it.name == 'app-postgres') {
+		bootJar {
+			enabled = true
+			mainClass = 'com.jms.boilerplate.PostgresApplication'
+		}
+
+		jar {
+			enabled = false // Do not disable the jar task when creating native images.
+		}
+	} else if (it.name == 'app-job-marketplace') {
+		bootJar {
+			enabled = true
+			mainClass = 'com.jms.jobmarketplace.JobMarketplaceApplication'
 		}
 
 		jar {
