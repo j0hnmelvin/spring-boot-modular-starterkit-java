@@ -5,5 +5,6 @@ include 'integration-kafka-avro'
 include 'user-service'
 include 'user-service-postgres'
 include 'user-service-mongodb'
+include 'app-design-patterns'
 include 'app-job-marketplace'
 

@@ -153,6 +153,15 @@ subprojects {
 		jar {
 			enabled = false // Do not disable the jar task when creating native images.
 		}
+	} else if (it.name == 'app-design-patterns') {
+		bootJar {
+			enabled = true
+			mainClass = 'com.jms.designpatterns.App'
+		}
+
+		jar {
+			enabled = false // Do not disable the jar task when creating native images.
+		}
 	} else if (it.name == 'app-job-marketplace') {
 		bootJar {
 			enabled = true

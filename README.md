@@ -20,6 +20,9 @@ This project template is your launchpad for building modular Spring Boot applica
   - You can implement your custom modules following a similar structure
 - **user-service-mongodb** and **user-service-postgres**
   - This example module illustrates database-specific implementation for the user-service module.
+- **[...]**
+  - **app-design-patterns**: ...
+  - **app-job-marketplace**: This example module illustrates a marketplace for contract jobs.
 
 ## Features
 
