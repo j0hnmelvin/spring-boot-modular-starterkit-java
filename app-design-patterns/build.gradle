@@ -1,0 +1,4 @@
+dependencies {
+    // jackson-dataformat-xml
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+}

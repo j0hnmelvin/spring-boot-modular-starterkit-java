@@ -6,6 +6,7 @@ import com.jms.designpatterns.creational.singleton.NonSingleton;
 import com.jms.designpatterns.creational.singleton.ThreadSafeDoubleCheckedLocking;
 import com.jms.designpatterns.creational.singleton.ThreadSafeEagerlyInitialized;
 import com.jms.designpatterns.creational.singleton.ThreadSafeLazyInitialized;
+import com.jms.designpatterns.structural.adapter.*;
 import java.util.Scanner;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +15,8 @@ public class App {
 
     enum Pattern {
         CREATIONAL_FACTORY,
-        CREATIONAL_SINGLETON
+        CREATIONAL_SINGLETON,
+        STRUCTURAL_ADAPTER
     }
 
     public static void main(String[] args) {
@@ -85,6 +87,13 @@ public class App {
                 log.info("dcl1={}", dcl1);
                 var dcl2 = ThreadSafeDoubleCheckedLocking.getInstance();
                 log.info("dcl2={}", dcl2);
+                break;
+            }
+            case STRUCTURAL_ADAPTER: {
+                Client client = new Client();
+                client.processData(new JSONDataAnalyticsToolImpl("{\"name\": \"John Doe\"}"));
+                XMLData xmlData = new XMLData("<root><name>John Doe</name></root>");
+                client.processData(new XMLAdapter(xmlData));
                 break;
             }
         }
