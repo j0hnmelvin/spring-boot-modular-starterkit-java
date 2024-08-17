@@ -1,5 +1,7 @@
 package com.jms.designpatterns;
 
+import com.jms.designpatterns.behavioral.observer.Group;
+import com.jms.designpatterns.behavioral.observer.User;
 import com.jms.designpatterns.creational.factory.CakeFactory;
 import com.jms.designpatterns.creational.factory.CakeType;
 import com.jms.designpatterns.creational.singleton.NonSingleton;
@@ -14,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class App {
 
     enum Pattern {
+        BEHAVIORAL_OBSERVER,
         CREATIONAL_FACTORY,
         CREATIONAL_SINGLETON,
         STRUCTURAL_ADAPTER
@@ -53,6 +56,19 @@ public class App {
 
     private static void runSelectedPattern(Pattern selectedPattern) {
         switch (selectedPattern) {
+            case BEHAVIORAL_OBSERVER: {
+                var group = new Group();
+                var user1 = new User(1);
+                var user2 = new User(2);
+                var user3 = new User(3);
+                group.addObserver(user1);
+                group.addObserver(user2);
+                group.addObserver(user3);
+                group.notifyObservers("Hello from JMS!");
+                group.removeObserver(user2);
+                group.notifyObservers("It is a sunny day!");
+                break;
+            }
             case CREATIONAL_FACTORY: {
                 log.info("The baker begins his work.");
                 var chocolateCake = CakeFactory.getCake(CakeType.CHOCOLATE);

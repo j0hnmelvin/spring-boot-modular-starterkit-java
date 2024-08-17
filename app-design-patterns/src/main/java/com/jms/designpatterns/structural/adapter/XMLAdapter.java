@@ -14,6 +14,7 @@ public class XMLAdapter implements JSONDataAnalyticsTool {
         xmlData = data;
     }
 
+    @Override
     public void analyzeData() {
         log.info("Converting XML Data {} to JSON Data", xmlData.getXMLData());
         try {
