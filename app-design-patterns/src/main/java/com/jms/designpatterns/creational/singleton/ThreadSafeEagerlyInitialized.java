@@ -14,7 +14,7 @@ public final class ThreadSafeEagerlyInitialized {
      * private constructor to prevent client from instantiating.
      */
     private ThreadSafeEagerlyInitialized(){
-        System.out.println("An instance of Singleton created.");
+        System.out.println("An instance of ThreadSafeEagerlyInitialized created.");
     }
 
     /**
@@ -22,7 +22,7 @@ public final class ThreadSafeEagerlyInitialized {
      *
      * @return instance of the singleton.
      */
-    public  static ThreadSafeEagerlyInitialized getInstance() {
+    public static ThreadSafeEagerlyInitialized getInstance() {
         return INSTANCE;
     }
 }

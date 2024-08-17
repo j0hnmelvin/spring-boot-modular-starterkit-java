@@ -54,7 +54,7 @@ public class App {
         scanner.close();
     }
 
-    private static void runSelectedPattern(Pattern selectedPattern) {
+    private static void runSelectedPattern(Pattern selectedPattern) throws InterruptedException {
         switch (selectedPattern) {
             case BEHAVIORAL_OBSERVER: {
                 var group = new Group();
@@ -86,23 +86,35 @@ public class App {
                 var nonSingleton2 = new NonSingleton();
                 log.info("nonSingleton2={}", nonSingleton2);
 
-                // Eagerly Initialized Singleton
-                var ei1 = ThreadSafeEagerlyInitialized.getInstance();
-                log.info("ei1={}", ei1);
-                var ei2 = ThreadSafeEagerlyInitialized.getInstance();
-                log.info("ei2={}", ei2);
+                // Create multiple threads
+                Thread thread1 = new Thread(() -> {
+                    var ei1 = ThreadSafeEagerlyInitialized.getInstance();
+                    log.info("Thread 1: {}", ei1);
 
-                // Lazily Initialized Singleton
-                var li1 = ThreadSafeLazyInitialized.getInstance();
-                log.info("li1={}", li1);
-                var li2 = ThreadSafeLazyInitialized.getInstance();
-                log.info("li2={}", li2);
+                    var li1 = ThreadSafeLazyInitialized.getInstance();
+                    log.info("Thread 1: {}", li1);
 
-                // Double-Checked Locking
-                var dcl1 = ThreadSafeDoubleCheckedLocking.getInstance();
-                log.info("dcl1={}", dcl1);
-                var dcl2 = ThreadSafeDoubleCheckedLocking.getInstance();
-                log.info("dcl2={}", dcl2);
+                    var dcl1 = ThreadSafeDoubleCheckedLocking.getInstance();
+                    log.info("Thread 1: {}", dcl1);
+                });
+
+                Thread thread2 = new Thread(() -> {
+                    var ei2 = ThreadSafeEagerlyInitialized.getInstance();
+                    log.info("Thread 2: {}", ei2);
+
+                    var li2 = ThreadSafeLazyInitialized.getInstance();
+                    log.info("Thread 2: {}", li2);
+
+                    var dcl2 = ThreadSafeDoubleCheckedLocking.getInstance();
+                    log.info("Thread 2: {}", dcl2);
+                });
+
+                // Start & join the threads
+                thread1.start();
+                thread2.start();
+                thread1.join();
+                thread2.join();
+
                 break;
             }
             case STRUCTURAL_ADAPTER: {

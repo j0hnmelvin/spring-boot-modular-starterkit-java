@@ -20,9 +20,9 @@ public final class ThreadSafeDoubleCheckedLocking {
     private ThreadSafeDoubleCheckedLocking() {
         // to prevent instantiating by Reflection call
         if (instance != null) {
-            throw new IllegalStateException("Already initialized.");
+            throw new IllegalStateException("ThreadSafeDoubleCheckedLocking already initialized.");
         }
-        System.out.println("An instance of Singleton created.");
+        System.out.println("An instance of ThreadSafeDoubleCheckedLocking created.");
     }
 
     /**

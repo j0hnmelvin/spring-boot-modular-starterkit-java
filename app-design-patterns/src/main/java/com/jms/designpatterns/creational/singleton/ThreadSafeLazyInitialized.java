@@ -17,9 +17,9 @@ public final class ThreadSafeLazyInitialized {
     private ThreadSafeLazyInitialized() {
         // Protect against instantiation via reflection
         if (instance != null) {
-            throw new IllegalStateException("Already initialized.");
+            throw new IllegalStateException("ThreadSafeLazyInitialized already initialized.");
         }
-        System.out.println("An instance of Singleton created.");
+        System.out.println("An instance of ThreadSafeLazyInitialized created.");
     }
 
     /**
