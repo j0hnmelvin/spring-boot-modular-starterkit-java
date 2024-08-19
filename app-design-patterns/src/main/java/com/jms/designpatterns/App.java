@@ -2,6 +2,11 @@ package com.jms.designpatterns;
 
 import com.jms.designpatterns.behavioral.observer.Group;
 import com.jms.designpatterns.behavioral.observer.User;
+import com.jms.designpatterns.creational.abstractfactory.AbstractFactory;
+import com.jms.designpatterns.creational.abstractfactory.Factory;
+import com.jms.designpatterns.creational.abstractfactory.OperatingSystem;
+import com.jms.designpatterns.creational.abstractfactory.button.Button;
+import com.jms.designpatterns.creational.abstractfactory.textbox.TextBox;
 import com.jms.designpatterns.creational.factory.CakeFactory;
 import com.jms.designpatterns.creational.factory.CakeType;
 import com.jms.designpatterns.creational.singleton.NonSingleton;
@@ -15,8 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class App {
 
-    enum Pattern {
+    enum PATTERN {
         BEHAVIORAL_OBSERVER,
+        CREATIONAL_ABSTRACT_FACTORY,
         CREATIONAL_FACTORY,
         CREATIONAL_SINGLETON,
         STRUCTURAL_ADAPTER
@@ -28,7 +34,7 @@ public class App {
         while (true) {
             // Display available patterns
             System.out.println("Available Patterns To Test:");
-            for (Pattern pattern : Pattern.values()) {
+            for (PATTERN pattern : PATTERN.values()) {
                 System.out.println(pattern.ordinal() + 1 + " - " + pattern);
             }
 
@@ -36,10 +42,10 @@ public class App {
             System.out.print("Enter Pattern Number: ");
 
             int patternNumber;
-            Pattern selectedPattern;
+            PATTERN selectedPattern;
             try {
                 patternNumber = Integer.valueOf(scanner.next());
-                selectedPattern = Pattern.values()[patternNumber - 1];
+                selectedPattern = PATTERN.values()[patternNumber - 1];
                 runSelectedPattern(selectedPattern);
             } catch (Exception e) {
                 System.out.println("Invalid Pattern Number...");
@@ -54,7 +60,7 @@ public class App {
         scanner.close();
     }
 
-    private static void runSelectedPattern(Pattern selectedPattern) throws InterruptedException {
+    private static void runSelectedPattern(PATTERN selectedPattern) throws InterruptedException {
         switch (selectedPattern) {
             case BEHAVIORAL_OBSERVER: {
                 var group = new Group();
@@ -67,6 +73,31 @@ public class App {
                 group.notifyObservers("Hello from JMS!");
                 group.removeObserver(user2);
                 group.notifyObservers("It is a sunny day!");
+                break;
+            }
+            case CREATIONAL_ABSTRACT_FACTORY: {
+                // Display available patterns
+                System.out.println("Available Operating Systems:");
+                for (OperatingSystem operatingSystem : OperatingSystem.values()) {
+                    System.out.println(operatingSystem.ordinal() + 1 + " - " + operatingSystem);
+                }
+
+                // Get user input as a number
+                System.out.print("Enter Operating System Number: ");
+
+                try {
+                    Scanner scanner = new Scanner(System.in);
+                    int enteredNumber = Integer.valueOf(scanner.next());
+                    OperatingSystem selectedOperatingSystem = OperatingSystem.values()[enteredNumber - 1];
+
+                    Factory factory = AbstractFactory.createFactory(selectedOperatingSystem);
+                    Button button = factory.createButton();
+                    button.displayButton();
+                    TextBox textBox = factory.createTextBox();
+                    textBox.displayTextBox();
+                } catch (Exception e) {
+                    System.out.println("Invalid Operating System Number...");
+                }
                 break;
             }
             case CREATIONAL_FACTORY: {
